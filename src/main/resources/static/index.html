@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Surat Menyurat Pemerintah Konoha</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+         
+         <script> 
+            function get(){
+                let view = document.getElementById("view");
+                $.ajax({
+                    url: 'http://localhost:8080/GET',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                        //console.log(result);
+                    }
+                });
+            }
+            function post(){
+                let view =  document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let noSurat = document.getElementById("noSurat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                let timeStamp = document.getElementById("timeStamp").value;     
+                let json = {"id":id, "noSurat":noSurat, "judul":judul, "tembusan":tembusan, "timeStamp":timeStamp}; 
+                let obj = JSON.stringify(json);
+                
+                $.ajax({
+                     url: 'http://localhost:8080/POST',
+                    data:obj, 
+                    method: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function put(){
+                let view =  document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let noSurat = document.getElementById("noSurat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                let timeStamp = document.getElementById("timeStamp").value;     
+                let json = {"id":id, "noSurat":noSurat, "judul":judul, "tembusan":tembusan, "timeStamp":timeStamp}; 
+                let obj = JSON.stringify(json);
+                $.ajax({
+                     url: 'http://localhost:8080/PUT',
+                    data:obj, 
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            function del(){
+                let id = document.getElementById("id").value;
+                let json = {"id":id};
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url: 'http://localhost:8080/DELETE',
+                    data:obj, 
+                    method: 'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+     </script>
+         
+    </head>
+    <body>
+        <div>RESTful Consume</div>
+        <input type="text" id="id" name="id">
+        
+        <input type="text" id="noSurat" name="noSurat">
+        
+        <input type="text" id="judul" name="judul">
+        
+        <input type="text" id="tembusan" name="tembusan">
+        
+        <input type="datetime-local" id="timeStamp" name="timeStamp">
+        
+        
+        <hr>
+        
+        <button onclick="get()">GET</button>
+        <button onclick="post()">POST</button><!-- comment -->
+        <button onclick="put()">PUT</button>
+        <button onclick="del()">DELETE</button>
+        <br><br><!-- comment -->
+        
+        <div id="view">
+    </body>
+</html>
